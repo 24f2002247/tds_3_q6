@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+ga3_state.db
+ga3_state.db-shm
+ga3_state.db-wal
+.env
