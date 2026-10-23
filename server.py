@@ -320,9 +320,18 @@ async def a2a_cancel_task(task_id: str, request: Request):
 # =====================================================================
 @app.post("/mailroom")
 @app.post("/mailroom/")
+@app.post("/mailroom/propose")
+@app.post("/mailroom/commit")
+@app.post("/propose")
+@app.post("/commit")
 async def mailroom_agent(request: Request):
     body = await request.json()
     op = body.get("operation")
+    if not op:
+        if request.url.path.endswith("commit"):
+            op = "commit"
+        else:
+            op = "propose"
     eval_id = body.get("evaluationId", "")
 
     if body.get("profile") != "ga5-mailroom-action-gate/v2":

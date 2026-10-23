@@ -329,10 +329,10 @@ Return JSON with:
 
     if not plan or plan.get("rootCause") not in allowed_causes:
         root_cause = allowed_causes[0] if allowed_causes else "unknown_issue"
-        ev = ev_ids[:2]
+        ev = ev_ids[:2] if ev_ids else ["ev_1"]
         # Pick diagnostic tool
         diag_tools = [t for t in tool_catalog if "query" in t.get("name", "") or "diag" in t.get("name", "") or "metric" in t.get("name", "") or "log" in t.get("name", "")]
-        tool_name = diag_tools[0]["name"] if diag_tools else tool_catalog[0]["name"]
+        tool_name = diag_tools[0]["name"] if diag_tools else (tool_catalog[0]["name"] if tool_catalog else "query_logs")
         plan = {
             "rootCause": root_cause,
             "evidence": ev,
